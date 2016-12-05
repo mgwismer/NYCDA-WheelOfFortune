@@ -1,0 +1,14 @@
+.input-div {
+  display: flex; }
+
+.input-div-letter {
+  background: pink;
+  width: 100px;
+  height: 100px;
+  display: inline-block; }
+
+.input-letter {
+  height: 100px;
+  font-size: 90px; }
+
+/*# sourceMappingURL=style.css.map */
