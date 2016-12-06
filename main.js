@@ -1,22 +1,42 @@
-$(document).ready(function() {
-  $('.box').hide();
-  $('#generator').click(function() {
-    $('.box').hide();
-    $('.quote').text("");
-    $('.author').text("");
-    $.ajax({
-      url: 'https://andruxnet-random-famous-quotes.p.mashape.com/',
-      type: "GET",
-      dataType: 'json',
-      success: function(data) {
-        console.log(data);
-        $('.quote').text('"' + data.quote + '"');
-        $('.author').text('--' + data.author);
-        $('.box').addClass('animated fadeInLeft').show();
-      },
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("X-Mashape-Authorization", "k0yyUeZkPpmshDLnY9BD8bFhgm5mp15QiNXjsncA14OFYnCyOH")
-      }
-    })
-  })
-});
+listOfPhrases = ["Democratic process", "Constitutional rights",
+"Executive power", "Legislative branch"];
+
+var currentGame = new wordGame(title);
+currentGame.start();
+
+//Top object wordGame
+function wordGame(title) {
+  this.name = title;
+  this.start = function() {
+    this.displayStartPage();
+    quote = this.selectQuote();
+    board = new makeBoard(phrase);
+    board.displayGamePage();
+    board.play()
+  }
+  
+  //this function part of wordGame object
+  this.displayStartPage = function() {
+    $("start-div").css("visibility", "visible");
+  }
+
+  this.selectQuote = function() {
+    var rand = listOfPhrases[Math.floor(Math.random()*listOfPhrases.length)];
+    return rand;  
+  }
+
+//Main object makeBoard.
+function makeBoard(phraseString) {
+   this.phrase = phraseString;
+   this.numGuess = 0;
+   this.displayGamePage = function() {
+     var parsedPhrase = new gamePhrase(this.phrase);
+     makeEventListeners()
+   }
+}
+
+//Third object newPhrase
+function newPhrase(phrase) {
+   this.total = phrase.length;
+   this.wordArray = phrase.split(" ");
+}
