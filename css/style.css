@@ -22,4 +22,13 @@
   display: inline-block;
   visibility: visible; }
 
+.input-guess-div {
+  display: flex;
+  visibility: hidden;
+  position: relative;
+  top: 100px; }
+
+.guess-div {
+  display: inline-block; }
+
 /*# sourceMappingURL=style.css.map */

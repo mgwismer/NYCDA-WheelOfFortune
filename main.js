@@ -82,8 +82,7 @@ $(document).ready(function() {
      }
 
      this.displayGameButtons = function() {
-       //function to display Pick a letter
-       //make a guess
+       $(".input-guess-div").css("visibility","visible");
      }
 
      this.makeListenersOnPlay = function() {
