@@ -189,6 +189,7 @@ $(document).ready(function() {
      checkForGameOver = function() {
         if (board.numGuess == 0){
           writeErrorMsg("Sorry Game Over");
+          fillInAllLetters();
           removeButtonEventListeners();
         }
      }
