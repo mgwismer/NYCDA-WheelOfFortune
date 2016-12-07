@@ -41,6 +41,7 @@ $(document).ready(function() {
      this.numLines = 0;
      this.charPerLine = 20;
      this.numBlanks = 0;
+     this.guessedLetters = [];
      this.displayGamePage = function() {
        currPhrase = new newPhrase(this.phrase);
        this.displayWordBoxes(currPhrase);
@@ -150,6 +151,14 @@ $(document).ready(function() {
      }
 
      checkForPhraseMatch = function() {
+       var inPhrase = $(".phrase-field").val();
+       console.log("inputted phrase "+inPhrase);
+       if (inPhrase == board.phrase) {
+         writeErrorMsg("Congratulations you win");
+       }
+       else {
+         writeErrorMsg("Sorry, you should try harder");
+       }
        console.log("in check "+board.phrase);
      }
   } //end makeBoard object
