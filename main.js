@@ -23,7 +23,6 @@ $(document).ready(function() {
 
     this.playGame = function() {  
       quote = this.selectQuote();
-      console.log(quote);
       board = new makeBoard(quote);
       board.displayGamePage();
       //board.play()
@@ -43,17 +42,19 @@ $(document).ready(function() {
      this.numGuess = 0;
      this.numLines = 0;
      this.charPerLine = 20;
+     this.numBlanks = 0;
      this.displayGamePage = function() {
        currPhrase = new newPhrase(this.phrase);
        this.displayWordBoxes(currPhrase);
        this.displayGameButtons();
-       this.makeListenersOnPlay();
+       this.makeListenersOnPlay(currPhrase);
      }
 
      this.displayWordBoxes = function(phrase) {
        $(".start-div").css("visibility","hidden");
        for (var i = 0; i < phrase.wordArray.length; i++) {
-          console.log("Word "+i+" "+phrase.wordArray[i]);
+          this.numBlanks += phrase.wordArray[i].length;
+          //console.log("Word "+i+" "+phrase.wordArray[i]);
           this.placeWordOnLine(phrase.wordArray[i],this.charPerLine);
           this.createSpace(this.charPerLine);
        }
@@ -85,10 +86,36 @@ $(document).ready(function() {
        $(".input-guess-div").css("visibility","visible");
      }
 
-     this.makeListenersOnPlay = function() {
-       //addEventListeners to Game Buttons
+     this.makeListenersOnPlay = function(currPhrase) {
+       console.log(currPhrase.wordArray[0]);
+       inLet = document.querySelector(".letter-btn");
+       inLet.addEventListener("click", checkForLetter, false);
+       inLet.currPhrase = currPhrase;
+       $(".phrase-btn").click(function() {
+         checkForPhraseMatch();
+       })
      }
 
+     checkForLetter = function(evt) {
+       //charIn = inputLetter();
+       console.log("in checkForLetter "+evt.target.currPhrase.wordArray[0]);
+       charIn = "b";
+       if (letterInPhrase(charIn)) { 
+          board.numBlanks -= displayLetters(charIn);
+       }
+       else {
+          //displayNotThisLetter();
+       }
+       board.numGuess += 1;
+     }
+
+     letterInPhrase = function(charIn) {
+       return (board.phrase.indexOf(charIn) >= 0);
+     }
+ 
+     displayLetters = function(charIn) {
+
+     }
   } //end makeBoard object
 
   //Third object newPhrase
