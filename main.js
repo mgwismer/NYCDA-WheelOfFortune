@@ -61,13 +61,17 @@ $(document).ready(function() {
        $(".input-div").css("visibility","visible");
      }
    
-     //can I use function displayWordBoxes() {}
+     //creates the boxes for one word in the display
      this.placeWordOnLine = function(word,numSpaces) {
       console.log("word length "+word.length);
       for (var i = 0; i < word.length; i++) {
+        //create a div element
         var letBox = document.createElement("div");
+        //give that div element a class 
         letBox.className = "input-div-letter";
+        //find the parent element
         var letDiv = document.getElementsByClassName("input-div")[0];
+        //attach the new div element to the parent
         letDiv.appendChild(letBox);
       }
       this.charPerLine -= word.length;
@@ -87,7 +91,6 @@ $(document).ready(function() {
      }
 
      this.makeListenersOnPlay = function(currPhrase) {
-       console.log(currPhrase.wordArray[0]);
        inLet = document.querySelector(".letter-btn");
        inLet.addEventListener("click", checkForLetter, false);
        inLet.currPhrase = currPhrase;
@@ -99,9 +102,10 @@ $(document).ready(function() {
      checkForLetter = function(evt) {
        //charIn = inputLetter();
        console.log("in checkForLetter "+evt.target.currPhrase.wordArray[0]);
-       charIn = "b";
+       currPhrase = evt.target.currPhrase;
+       charIn = "e";
        if (letterInPhrase(charIn)) { 
-          board.numBlanks -= displayLetters(charIn);
+          board.numBlanks -= displayLetters(charIn,currPhrase);
        }
        else {
           //displayNotThisLetter();
@@ -114,7 +118,24 @@ $(document).ready(function() {
      }
  
      displayLetters = function(charIn) {
+       var indices = [];
+       for(var i=0; i < board.phrase.length; i++) {
+         if (board.phrase[i] === "s") 
+           indices.push(i);
+       }
+       board.numBlanks -= indices.length;
+       putLettersInBlocks(charIn,indices);
+     }
 
+     putLettersInBlocks = function(charIn,indices) {
+       bloxDiv = document.getElementsByClassName("input-div")[0].childNodes;
+       for (var i = 0; i < indices.length; i++) {
+         bloxDiv[indices[i]].innerText = charIn
+       }
+     }
+
+     checkForPhraseMatch = function() {
+       console.log("in check "+board.phrase);
      }
   } //end makeBoard object
 
