@@ -1,7 +1,8 @@
 $(document).ready(function() {
   listOfPhrases = ["democratic process", "constitutional rights",
   "executive power", "legislative branch", "supreme court",
-  "separation of powers", "federal government","bicameral congress"];
+  "separation of powers", "federal government","bicameral congress",
+  "electoral college"];
 
   var currentGame = new wordGame("Wheel of Fortune");
   currentGame.start();
@@ -25,7 +26,6 @@ $(document).ready(function() {
       quote = this.selectQuote();
       board = new makeBoard(quote);
       board.displayGamePage();
-      //board.play()
     }
 
     this.selectQuote = function() {
@@ -38,7 +38,7 @@ $(document).ready(function() {
   //Main object makeBoard.
   function makeBoard(phraseString) {
      this.phrase = phraseString;
-     this.numGuess = 20;
+     this.numGuess = 9;
      this.numLines = 0;
      this.charPerLine = 20;
      this.numBlanks = 0;
@@ -93,10 +93,16 @@ $(document).ready(function() {
      this.makeListenersOnPlay = function(currPhrase) {
        inLet = document.getElementsByClassName("letter-btn")[0];
        inLet.addEventListener("click", checkForLetter, false);
-       inLet.currPhrase = currPhrase;
-       console.log("letter btn "+inLet);
-       $(".phrase-btn").click(function() {
-         checkForPhraseMatch();
+       document.getElementsByClassName("phrase-btn")[0].addEventListener("click",checkForPhraseMatch);
+       // $(".phrase-btn").click(function() {
+       //   checkForPhraseMatch();
+       // })
+       $(".reload-btn").click(function(){
+         window.location.reload();
+       })
+       $(".guessed-btn").click(function() {
+         console.log("guessed btn clicked")
+         printOutGuessedLetters();
        })
      }
 
@@ -110,8 +116,10 @@ $(document).ready(function() {
          }
          else {
            writeErrorMsg("This letter is not in the answer");
+           board.numGuess -= 1;
+           console.log("num guess "+board.numGuess)
+           checkForGameOver();
          }
-         board.numGuess -= 1;
          $(".guess-msg").html(board.numGuess+" guesses left");
        }
      }
@@ -119,13 +127,14 @@ $(document).ready(function() {
      inputLetter = function() {
         var inLet = $(".letter-field").val();
         $(".letter-field").val("");
-        console.log("input "+inLet.length);
         if (inLet.length != 1) {
           writeErrorMsg("Input one character");
           return null;
         }
-        else
+        else {
+          board.guessedLetters.push(inLet);
           return inLet;
+        }
      }
 
      writeErrorMsg = function(message) {
@@ -139,13 +148,10 @@ $(document).ready(function() {
  
      displayLetters = function(charIn) {
        var indices = [];
-       console.log("board.phrase "+board.phrase)
        for(var i=0; i < board.phrase.length; i++) {
          if (board.phrase[i] == charIn) 
            indices.push(i);
        }
-       console.log("letter indices");
-       console.log(indices);
        board.numBlanks -= indices.length;
        putLettersInBlocks(charIn,indices);
      }
@@ -163,6 +169,7 @@ $(document).ready(function() {
          bloxDiv[i+1].innerText = board.phrase[i];
        }
      }
+
      checkForPhraseMatch = function() {
        var inPhrase = $(".phrase-field").val();
        fillInAllLetters();
@@ -170,10 +177,29 @@ $(document).ready(function() {
          writeErrorMsg("Congratulations you win");
          $(".error-msg").fadeOut(800).fadeIn(800).fadeOut(400).fadeIn(400)
            .fadeOut(400).fadeIn(400);
+         $(".guess-msg").html("");      
+         $(".guess-letters").html("");
+
        }
        else {
          writeErrorMsg("Sorry, you should try harder");
        }
+     }
+     
+     checkForGameOver = function() {
+        if (board.numGuess == 0){
+          writeErrorMsg("Sorry Game Over");
+          removeButtonEventListeners();
+        }
+     }
+
+     removeButtonEventListeners = function() {
+        document.getElementsByClassName("letter-btn")[0].removeEventListener("click",checkForLetter);
+        document.getElementsByClassName("phrase-btn")[0].removeEventListener("click",checkForPhraseMatch);
+     }
+
+     printOutGuessedLetters = function() {
+       $(".guess-letters").html("Letters guessed "+board.guessedLetters);
      }
   } //end makeBoard object
 
