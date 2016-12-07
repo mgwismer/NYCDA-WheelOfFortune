@@ -1,0 +1,17 @@
+.error-msg {
+	width: 100%;
+	height: $msgBoxHeight;
+	position: relative;
+	top:120px;
+	font-size:$msgFontSize;
+	text-align:center;
+}
+
+.guess-msg {
+	width: 100%;
+	height: $msgBoxHeight;
+	position:relative;
+	top: 150px;
+	font-size:$msgFontSize;
+    text-align: center;
+}

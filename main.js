@@ -1,6 +1,7 @@
 $(document).ready(function() {
   listOfPhrases = ["democratic process", "constitutional rights",
-  "executive power", "legislative branch", "supreme court"];
+  "executive power", "legislative branch", "supreme court",
+  "separation of powers", "federal government","bicameral congress"];
 
   var currentGame = new wordGame("Wheel of Fortune");
   currentGame.start();
@@ -90,9 +91,10 @@ $(document).ready(function() {
      }
 
      this.makeListenersOnPlay = function(currPhrase) {
-       inLet = document.querySelector(".letter-btn");
+       inLet = document.getElementsByClassName("letter-btn")[0];
        inLet.addEventListener("click", checkForLetter, false);
        inLet.currPhrase = currPhrase;
+       console.log("letter btn "+inLet);
        $(".phrase-btn").click(function() {
          checkForPhraseMatch();
        })
@@ -100,23 +102,28 @@ $(document).ready(function() {
 
      checkForLetter = function(evt) {
        currPhrase = evt.target.currPhrase;
+       console.log("currPhrase "+currPhrase);
        var charIn = inputLetter();
-       console.log("returned letter "+charIn)
-       if (letterInPhrase(charIn)) { 
-          displayLetters(charIn,currPhrase);
+       if (charIn != null) {
+         if (letterInPhrase(charIn)) { 
+           displayLetters(charIn,currPhrase);
+         }
+         else {
+           writeErrorMsg("This letter is not in the answer");
+         }
+         board.numGuess -= 1;
+         $(".guess-msg").html(board.numGuess+" guesses left");
        }
-       else {
-          writeErrorMsg("This letter is not in the answer");
-       }
-       board.numGuess -= 1;
-       $(".guess-msg").html(board.numGuess+" guesses left");
      }
 
      inputLetter = function() {
         var inLet = $(".letter-field").val();
+        $(".letter-field").val("");
         console.log("input "+inLet.length);
-        if (inLet.length != 1)
+        if (inLet.length != 1) {
           writeErrorMsg("Input one character");
+          return null;
+        }
         else
           return inLet;
      }
@@ -144,22 +151,29 @@ $(document).ready(function() {
      }
 
      putLettersInBlocks = function(charIn,indices) {
-       bloxDiv = document.getElementsByClassName("input-div")[0].childNodes;
+       var bloxDiv = document.getElementsByClassName("input-div")[0].childNodes;
        for (var i = 0; i < indices.length; i++) {
          bloxDiv[indices[i]+1].innerText = charIn
        }
      }
-
+     
+     fillInAllLetters = function() {
+       var bloxDiv = document.getElementsByClassName("input-div")[0].childNodes;
+       for (var i = 0; i < board.phrase.length; i++) {
+         bloxDiv[i+1].innerText = board.phrase[i];
+       }
+     }
      checkForPhraseMatch = function() {
        var inPhrase = $(".phrase-field").val();
-       console.log("inputted phrase "+inPhrase);
+       fillInAllLetters();
        if (inPhrase == board.phrase) {
          writeErrorMsg("Congratulations you win");
+         $(".error-msg").fadeOut(800).fadeIn(800).fadeOut(400).fadeIn(400)
+           .fadeOut(400).fadeIn(400);
        }
        else {
          writeErrorMsg("Sorry, you should try harder");
        }
-       console.log("in check "+board.phrase);
      }
   } //end makeBoard object
 
