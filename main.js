@@ -1,6 +1,6 @@
 $(document).ready(function() {
-  listOfPhrases = ["Democratic process", "Constitutional rights",
-  "Executive power", "Legislative branch"];
+  listOfPhrases = ["democratic process", "constitutional rights",
+  "executive power", "legislative branch", "supreme court"];
 
   var currentGame = new wordGame("Wheel of Fortune");
   currentGame.start();
@@ -16,7 +16,6 @@ $(document).ready(function() {
     this.displayStartPage = function() {
       $(".start-div").css("visibility", "visible");
       $(".start-btn").click(function(){
-        console.log("button clicked");
         currentGame.playGame();
       });
     }
@@ -29,7 +28,6 @@ $(document).ready(function() {
     }
 
     this.selectQuote = function() {
-      console.log("phrase 1 "+listOfPhrases[0]);
       var rand = listOfPhrases[Math.floor(Math.random()*listOfPhrases.length)];
       console.log(rand);
       return rand;  
@@ -101,11 +99,10 @@ $(document).ready(function() {
 
      checkForLetter = function(evt) {
        //charIn = inputLetter();
-       console.log("in checkForLetter "+evt.target.currPhrase.wordArray[0]);
-       currPhrase = evt.target.currPhrase;
+      currPhrase = evt.target.currPhrase;
        charIn = "e";
        if (letterInPhrase(charIn)) { 
-          board.numBlanks -= displayLetters(charIn,currPhrase);
+          displayLetters(charIn,currPhrase);
        }
        else {
           //displayNotThisLetter();
@@ -114,15 +111,20 @@ $(document).ready(function() {
      }
 
      letterInPhrase = function(charIn) {
+       var index = board.phrase.indexOf(charIn);
+       console.log("letter index "+index);
        return (board.phrase.indexOf(charIn) >= 0);
      }
  
      displayLetters = function(charIn) {
        var indices = [];
+       console.log("board.phrase "+board.phrase)
        for(var i=0; i < board.phrase.length; i++) {
-         if (board.phrase[i] === "s") 
+         if (board.phrase[i] == charIn) 
            indices.push(i);
        }
+       console.log("letter indices");
+       console.log(indices);
        board.numBlanks -= indices.length;
        putLettersInBlocks(charIn,indices);
      }
@@ -130,7 +132,7 @@ $(document).ready(function() {
      putLettersInBlocks = function(charIn,indices) {
        bloxDiv = document.getElementsByClassName("input-div")[0].childNodes;
        for (var i = 0; i < indices.length; i++) {
-         bloxDiv[indices[i]].innerText = charIn
+         bloxDiv[indices[i]+1].innerText = charIn
        }
      }
 
