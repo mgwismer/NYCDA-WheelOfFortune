@@ -37,7 +37,7 @@ $(document).ready(function() {
   //Main object makeBoard.
   function makeBoard(phraseString) {
      this.phrase = phraseString;
-     this.numGuess = 0;
+     this.numGuess = 20;
      this.numLines = 0;
      this.charPerLine = 20;
      this.numBlanks = 0;
@@ -98,21 +98,34 @@ $(document).ready(function() {
      }
 
      checkForLetter = function(evt) {
-       //charIn = inputLetter();
-      currPhrase = evt.target.currPhrase;
-       charIn = "e";
+       currPhrase = evt.target.currPhrase;
+       var charIn = inputLetter();
+       console.log("returned letter "+charIn)
        if (letterInPhrase(charIn)) { 
           displayLetters(charIn,currPhrase);
        }
        else {
-          //displayNotThisLetter();
+          writeErrorMsg("This letter is not in the answer");
        }
-       board.numGuess += 1;
+       board.numGuess -= 1;
+       $(".guess-msg").html(board.numGuess+" guesses left");
+     }
+
+     inputLetter = function() {
+        var inLet = $(".letter-field").val();
+        console.log("input "+inLet.length);
+        if (inLet.length != 1)
+          writeErrorMsg("Input one character");
+        else
+          return inLet;
+     }
+
+     writeErrorMsg = function(message) {
+        $(".error-msg").html(message);
      }
 
      letterInPhrase = function(charIn) {
        var index = board.phrase.indexOf(charIn);
-       console.log("letter index "+index);
        return (board.phrase.indexOf(charIn) >= 0);
      }
  
