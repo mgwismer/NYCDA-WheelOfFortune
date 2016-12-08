@@ -50,6 +50,11 @@
   font-size: 60px;
   color: #0D21A1; }
 
+.start-div {
+  position: relative;
+  top: 100px;
+  right: 100px; }
+
 .start-btn {
   color: black;
   text-align: center; }
