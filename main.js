@@ -91,6 +91,7 @@ $(document).ready(function() {
      }
 
      this.makeListenersOnPlay = function(currPhrase) {
+       $(".letter-field").focus();
        inLet = document.getElementsByClassName("letter-btn")[0];
        inLet.addEventListener("click", checkForLetter, false);
        document.getElementsByClassName("phrase-btn")[0].addEventListener("click",checkForPhraseMatch);
@@ -121,6 +122,7 @@ $(document).ready(function() {
            checkForGameOver();
          }
          $(".guess-msg").html(board.numGuess+" guesses left");
+         $(".letter-field").focus();
        }
      }
 
@@ -189,6 +191,7 @@ $(document).ready(function() {
      checkForGameOver = function() {
         if (board.numGuess == 0){
           writeErrorMsg("Sorry Game Over");
+          fillInAllLetters();
           removeButtonEventListeners();
         }
      }
