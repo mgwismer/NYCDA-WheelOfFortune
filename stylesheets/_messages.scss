@@ -1,13 +1,8 @@
-.message-div {
-	border: 5px solid blue;
-    position: relative;
-	top:120px;
-	height: 300px;
-	line-height: 200px;
-}
 .error-msg {
 	width: 100%;
 	height: $msgBoxHeight;
+	// position: relative;
+	// top:120px;
 	font-size:$msgFontSize;
 	text-align:center;
 }
@@ -15,6 +10,8 @@
 .guess-msg {
 	width: 100%;
 	height: $msgBoxHeight;
+	position:relative;
+	top: 150px;
 	font-size:$msgFontSize;
     text-align: center;
 }
@@ -22,6 +19,8 @@
 .guess-letters {
 	width: 100%;
 	height: $msgBoxHeight;
+	position:relative;
+	top: 180px;
 	font-size:$msgFontSize;
     text-align: center;
 }
