@@ -20,7 +20,7 @@ $(document).ready(function() {
       $(".of-word-div").slideUp(2000);
       $(".fortune-div").slideUp(3000);
       $(".fortune").fadeOut(800).fadeIn(800).fadeOut(400).fadeIn(400)
-           .fadeOut(400).fadeIn(400);
+           .fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
       $(".start-btn").click(function(){
         currentGame.playGame();
       });
@@ -55,7 +55,7 @@ $(document).ready(function() {
      }
 
      this.displayWordBoxes = function(phrase) {
-       $(".welcome-msg").css("visibility","hidden");
+       $(".welcome-cont").css("visibility","hidden");
        $(".game-board").css("visibility", "visible");
        for (var i = 0; i < phrase.wordArray.length; i++) {
           this.numBlanks += phrase.wordArray[i].length;
