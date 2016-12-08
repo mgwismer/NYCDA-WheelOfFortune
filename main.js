@@ -55,7 +55,8 @@ $(document).ready(function() {
      }
 
      this.displayWordBoxes = function(phrase) {
-       $(".welcome-cont").css("visibility","hidden");
+       $(".welcome-cont").css("display","none");
+       //$(".welcome-msg").css("visibility","hidden");
        $(".game-board").css("visibility", "visible");
        for (var i = 0; i < phrase.wordArray.length; i++) {
           this.numBlanks += phrase.wordArray[i].length;

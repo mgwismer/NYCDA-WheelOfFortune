@@ -1,6 +1,10 @@
 .welcome-cont {
   visibility: visible; }
 
+.welcome {
+  text-align: center;
+  font-size: 30px; }
+
 .welcome-msg {
   position: relative;
   top: -500px;
@@ -61,7 +65,6 @@
 
 .game-board {
   position: relative;
-  top: -500px;
   visibility: hidden; }
 
 .input-div {
