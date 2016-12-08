@@ -10,11 +10,25 @@
 </head>
 <body>
 <div class="container-fluid">
-  <div class="welcome-msg"> <h1> Welcome to Wheel of Fortune </h1>
+  <div class="welcome-msg"> 
+    <div class="welcome"> Welcome to 
+    </div>
 
-  <div class="start-div">
-  	<input class="ctrl-btn start-btn" type="button" name="start" value="START">
-  </div>
+    <div class="main-title">
+     <div class="wheel-div main-div"> </div>
+      <div class="wheel"> Wheel </div>
+     <div class="of-word-div main-div"> </div>
+      <div class="of-word">of </div>
+     <div class="fortune-div main-div"> </div>
+      <div class="fortune">Fortune</div> 
+    </div> <!-- end main-title -->
+
+    <div class="start-div">
+  	  <input class="ctrl-btn start-btn" type="button" name="start" value="START">
+    </div>
+  </div> <!-- end welcome-msg -->
+  
+  <div class="game-board">
   <div class="input-div">
        
   </div> <!-- end input-div -->
@@ -34,7 +48,7 @@
     <div class="reload-div">
       <form>
          <input type="button" name="reload" value="RELOAD" class="ctrl-btn reload-btn">
-         <input type="button" name="guessed" class="ctrl-btn guessed-btn" value="LETTERS GUESSED"></input>
+         <input type="button" name="guessed" class="ctrl-btn guessed-btn" value="USED LETTERS"></input>
       </form>
       <div class="guessed-letters">
         
@@ -49,6 +63,7 @@
      <div class="guess-letters">    
      </div>
   </div>
+  </div> <!-- end game-board -->
 </div> <!-- end container-fluid -->
 </body>
 </html>

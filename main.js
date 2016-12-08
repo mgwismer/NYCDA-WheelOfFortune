@@ -16,7 +16,11 @@ $(document).ready(function() {
     
     //this function part of wordGame object
     this.displayStartPage = function() {
-      $(".start-div").css("visibility", "visible");
+      $(".wheel-div").slideUp(300);
+      $(".of-word-div").slideUp(2000);
+      $(".fortune-div").slideUp(3000);
+      $(".fortune").fadeOut(800).fadeIn(800).fadeOut(400).fadeIn(400)
+           .fadeOut(400).fadeIn(400);
       $(".start-btn").click(function(){
         currentGame.playGame();
       });
@@ -51,7 +55,8 @@ $(document).ready(function() {
      }
 
      this.displayWordBoxes = function(phrase) {
-       $(".start-div").css("visibility","hidden");
+       $(".welcome-msg").css("visibility","hidden");
+       $(".game-board").css("visibility", "visible");
        for (var i = 0; i < phrase.wordArray.length; i++) {
           this.numBlanks += phrase.wordArray[i].length;
           //console.log("Word "+i+" "+phrase.wordArray[i]);
@@ -87,10 +92,13 @@ $(document).ready(function() {
      }
 
      this.displayGameButtons = function() {
+       $(".welcome").html("The Rule of Law");
+       $(".welcome").css("visibility","visible");
        $(".input-guess-div").css("visibility","visible");
      }
 
      this.makeListenersOnPlay = function(currPhrase) {
+       $(".letter-field").focus();
        inLet = document.getElementsByClassName("letter-btn")[0];
        inLet.addEventListener("click", checkForLetter, false);
        document.getElementsByClassName("phrase-btn")[0].addEventListener("click",checkForPhraseMatch);
@@ -121,6 +129,7 @@ $(document).ready(function() {
            checkForGameOver();
          }
          $(".guess-msg").html(board.numGuess+" guesses left");
+         $(".letter-field").focus();
        }
      }
 

@@ -1,14 +1,22 @@
 
+.game-board {
+    position: relative;
+	top: -500px;
+	visibility: hidden;
+}
+
 .input-div {
 	display: flex;
 	visibility: hidden;
 }
 
 .ctrl-btn {
-    width: 150px;
+    width: 165px;
     height: 50px;
     background: cyan;
     margin: 20px;
+    font-size: 18px;
+    line-height: 40px;
 }
 
 .input-div-letter {
