@@ -100,12 +100,13 @@ $(document).ready(function() {
 
      this.makeListenersOnPlay = function(currPhrase) {
        $(".letter-field").focus();
-       inLet = document.getElementsByClassName("letter-btn")[0];
-       inLet.addEventListener("click", checkForLetter, false);
-       document.getElementsByClassName("phrase-btn")[0].addEventListener("click",checkForPhraseMatch);
-       // $(".phrase-btn").click(function() {
-       //   checkForPhraseMatch();
-       // })
+       // inLet = document.getElementsByClassName("letter-btn")[0];
+       // inLet.addEventListener("click", checkForLetter, false);
+       //When using jQuery the event is not automatically passed
+       $(".letter-btn").on("click",checkForLetter);
+       $(".phrase-btn").click(function(){
+         checkForPhraseMatch();
+       })
        $(".reload-btn").click(function(){
          window.location.reload();
        })
@@ -116,12 +117,10 @@ $(document).ready(function() {
      }
 
      checkForLetter = function(evt) {
-       currPhrase = evt.target.currPhrase;
-       console.log("currPhrase "+currPhrase);
        var charIn = inputLetter();
        if (charIn != null) {
          if (letterInPhrase(charIn)) { 
-           displayLetters(charIn,currPhrase);
+           displayLetters(charIn);
          }
          else {
            writeErrorMsg("This letter is not in the answer");
